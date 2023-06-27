@@ -1,0 +1,36 @@
+function decode(message) {
+  // your code here
+  let i = 0, j = 0;
+  let out = "";
+  let dir = +1;
+
+  if(message.length == 0 || message[0].length == 0) {
+    return out;
+  }
+
+  let row = message.length, col = message[0].length;
+  if(message[0].length == 1) {
+    return message[0][0];
+  }
+
+  while(j < col) {
+    out += message[i][j];
+    
+    if(i === row-1) {
+      dir = -1;
+    }
+    if(i == 0) {
+      dir = +1;
+    }
+    i += dir;
+    j += 1;
+  }
+  
+  return out;
+}
+
+decode([
+ [ 'I', 'B', 'C', 'A', 'L', 'K', 'A'],
+['D', 'R', 'F', 'C', 'A', 'E', 'A'],
+['G', 'H', 'O', 'E', 'L', 'A', 'D' ]
+])
