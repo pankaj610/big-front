@@ -1,0 +1,10 @@
+function pipe(funcs) {
+	// your code here
+	return (val)=> {
+		let out = val;
+		funcs.forEach((func)=> {
+			out = func(out);
+		});
+		return out;
+	}
+}
