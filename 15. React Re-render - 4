@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
-function A({ children }) {
+function A({ children }) { // children will remain same and hence it won't re-render
   console.log('A')
   const [state, setState] = useState(0)
   useEffect(() => {
