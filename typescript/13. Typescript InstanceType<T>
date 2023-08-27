@@ -10,3 +10,6 @@ type B = MyInstanceType<() => string> // Error
 
 // your code here, please don't use InstanceType<T> in your code
 type MyInstanceType<T extends abstract new (...args: any) => any > = T extends abstract new (...props: infer P) => infer R ? R : never; 
+
+// your code here, please don't use InstanceType<T> in your code
+type MyInstanceType<T extends new (...args: any) => any > = T extends new (...props: any) => infer R ? R : never;
