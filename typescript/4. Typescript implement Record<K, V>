@@ -1,0 +1,7 @@
+type MyRecord<K extends string | number | symbol, V> = {
+  [k in K] : V
+}
+
+type MyRecord<K extends keyof any, V> = {
+  [k in K] : V
+}
