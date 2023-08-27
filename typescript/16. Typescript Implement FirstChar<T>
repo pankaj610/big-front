@@ -1,0 +1,11 @@
+Please implement FirstChar<T> to get the first character of a string.
+
+type A = FirstChar<'BFE'> // 'B'
+type B = FirstChar<'dev'> // 'd'
+type C = FirstChar<''> // never
+prev
+
+
+--- Output ---
+type FirstChar<T extends string> = T extends `${infer T}${string}` ?  T : never 
+  // your code here
