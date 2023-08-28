@@ -11,3 +11,8 @@ prev
 
 type LastChar<T extends string> = T extends `${infer F}${infer L}` ? L extends '' ? F : LastChar<L> : never;
 // your code here
+
+1. Initially F will have B and L will have FE
+2. Then F will have F and L will be E
+3. Then F will have E and L will have '' empty 
+So we will return F
