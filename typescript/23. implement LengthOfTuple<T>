@@ -1,0 +1,10 @@
+Here is an easy problem, please implement LengthOfTuple<T> to return the length of tuple.
+
+type A = LengthOfTuple<['B', 'F', 'E']> // 3
+type B = LengthOfTuple<[]> // 0
+
+
+---- Output ----
+
+
+type LengthOfTuple<T extends any[]> = T['length']; 
