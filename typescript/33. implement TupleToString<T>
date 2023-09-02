@@ -1,0 +1,21 @@
+
+
+
+Implement TupleToString<T> to return a new type by concatenating all the string to a new string type.
+
+type A = TupleToString<['a']> // 'a'
+type B = TupleToString<['B', 'F', 'E']> // 'BFE'
+type C = TupleToString<[]> // ''
+
+
+--- Output ---
+
+
+
+type TupleToString<T extends string[]> = 
+    T extends [infer F, ...infer L] ?
+      L extends string[] ? 
+          `${F & string}${TupleToString<L>}` :  F : 
+              '';
+
+
