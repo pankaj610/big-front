@@ -1,0 +1,10 @@
+
+Implement ReverseTuple<T> to reverse a tuple type.
+
+type A = ReverseTuple<[string, number, boolean]> // [boolean, number, string]
+type B = ReverseTuple<[1,2,3]> // [3,2,1]
+type C = ReverseTuple<[]> // []
+
+--- Output ---
+
+type ReverseTuple<T extends any[]> = T extends [infer H, ...infer L] ? [...ReverseTuple<L>, H] : []
