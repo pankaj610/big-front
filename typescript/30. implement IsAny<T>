@@ -1,0 +1,21 @@
+Implement IsAny<T> to check against any.
+
+type A = IsAny<string> // false
+type B = IsAny<any> // true
+type C = IsAny<unknown> // false
+type D = IsAny<never> // false
+
+
+
+
+
+
+type IsAny<T> =  false extends true & T ? true : false 
+
+// Explaination: https://github.com/pinglu85/BFEdevSolutions/blob/main/TypeScript-Puzzles/30.implement-IsAny-T.md
+
+
+
+
+
+
