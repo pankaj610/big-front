@@ -24,3 +24,16 @@ setTimeout(() => {
 setTimeout(() => {
   console.log(9)
 }, 0)
+
+--- Output ---
+
+  1
+2
+3
+4
+7
+5
+6
+9
+8
+
