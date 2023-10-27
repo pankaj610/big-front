@@ -1,0 +1,92 @@
+Q. Create your own Custom Promise
+
+const STATE = {
+
+    PENDING: 'pending',
+    SUCCESS: 'success',
+    REJECTED: 'reject',
+}
+
+class MyPromise {
+    state = STATE.PENDING;
+    val = null;
+    successCallbacks = [];
+    failureCallbacks = [];
+    
+    constructor(promiseFun) {
+        try {
+            promiseFun(
+                (val) => this.resolve(val),
+                (val) => this.reject(val)
+            );    
+        } catch(err) {
+            this.reject(err);
+        }
+    }
+    resolve(val) {
+        this.val = val;
+        this.state = STATE.SUCCESS;
+        this.successCallbacks.forEach(cb => cb());
+    }
+    reject(val) {
+        this.val = val;
+        this.state = STATE.REJECTED;
+        this.failureCallbacks.forEach(cb => cb());
+    }
+    then(onFullfilled, onRejected) {
+        return new MyPromise((resolve, reject)=> {
+            const successCallback = ()=> {
+                if(!onFullfilled) return resolve(this.val);
+                queueMicrotask(()=> {
+                    try {
+                        resolve(onFullfilled(this.val));
+                    } catch(e) {
+                        reject(e);
+                    }
+                })
+            }
+            const failureCallback = ()=> {
+                if(!onRejected) return reject(this.val);
+                queueMicrotask(()=> {
+                    try {
+                        reject(onFullfilled(this.val));
+                    } catch(e) {
+                        reject(e);
+                    }
+                })
+            }
+            switch(this.state) {
+                case STATE.PENDING:
+                    this.successCallbacks.push(successCallback);
+                    this.failureCallbacks.push(failureCallback);
+                    break;
+                case STATE.SUCCESS:
+                    successCallback();
+                    break;
+                case STATE.REJECTED:
+                    failureCallback();
+                    break;
+                default:
+                    throw new Error('Unknown state');
+            }
+        })
+    }
+    catch(onRejected) {
+        return this.then(null, onRejected);
+    }
+}
+
+
+const promise = new MyPromise((resolve, reject)=> {
+    // if reject executed then should not execute resolve.
+    setTimeout(()=> {
+        resolve("Executed");
+    }, 1000);
+});
+
+promise.then(val=> {
+    console.log(val);
+}).catch(err => {
+    console.log(err);
+})
+
