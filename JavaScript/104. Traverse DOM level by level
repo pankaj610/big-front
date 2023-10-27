@@ -1,0 +1,17 @@
+
+/**
+ * @param {HTMLElement | null} root
+ * @return {HTMLElement[]}
+ */
+function flatten(root) {
+  // your code here
+  let output = [];
+  if(!root) return output;
+  const queue = [root];
+  while(queue.length > 0) {
+    let node = queue.shift();
+    output.push(node);
+    queue.push(...node.children)
+  }
+  return output;
+}
